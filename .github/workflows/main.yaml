@@ -30,4 +30,4 @@ jobs:
         target_branch: BlazorCats-github-pages
         build_dir: ${{ env.PUBLISH_DIR }}
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.BLAZORCATS_TOKEN }}
