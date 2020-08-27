@@ -1,0 +1,60 @@
+﻿@inject TheCatApi Api
+@inject HttpCat HttpCat
+
+@if ((Breeds != null) && Breeds.Count > 0)
+{
+    <Row Class="h-100">
+        <Column ColumnSize="ColumnSize.IsFull" Class="h-100">
+            <ListGroup Class="h-100" Style="overflow-y: auto">
+                @foreach (var item in Breeds)
+                {
+                    <ListGroupItem>
+                        <Blazorise.Link To="@item.WikipediaUrl">@item.Name</Blazorise.Link>
+                    </ListGroupItem>
+                }
+            </ListGroup>
+        </Column>
+    </Row>
+}
+
+<Modal @ref="ErrorModal">
+    <Alert Color="Color.Danger" Visible="true">
+        <AlertMessage>Error getting the list of images.</AlertMessage>
+        <AlertDescription>
+            <Image Source="ErrorImage"></Image>
+        </AlertDescription>
+    </Alert>
+</Modal>
+
+@code {
+    List<Breed> Breeds;
+    Modal ErrorModal;
+    string ErrorImage;
+
+    protected override async void OnInitialized()
+    {
+        Console.WriteLine("Show all breeds");
+        var result = await Api.GetAllBreed();
+
+        if (result.StatusCode != HttpStatusCode.OK)
+        {
+            ErrorImage = await HttpCat.Get(result.StatusCode);
+            ErrorModal.Show();
+        }
+
+        Breeds = result.Value.ToList();
+
+        if (Breeds == null)
+        {
+            ErrorImage = await HttpCat.Get(HttpStatusCode.NotFound);
+            ErrorModal.Show();
+        }
+
+        foreach (var b in Breeds)
+        {
+            Console.WriteLine(b.Name);
+        }
+
+        StateHasChanged();
+    }
+}

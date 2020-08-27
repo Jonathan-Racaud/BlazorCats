@@ -1,0 +1,50 @@
+﻿@inject TheCatApi Api
+
+<Container Fluid="true">
+    <Row>
+        <Column ColumnSize="ColumnSize.IsFull">
+            @if ((Images != null) && (Images.Count > 0))
+            {
+                <Row>
+                    <Column ColumnSize="ColumnSize.IsFull">
+                        <ImageList Images="@Images" />
+                    </Column>
+                </Row>
+            }
+            else
+            {
+                <Row>
+                    <Column ColumnSize="ColumnSize.IsFull">
+                        <Alert Color="Color.Info" Visible="true">
+                            <AlertMessage>Perform a search with the form above to get a list of cat pictures.</AlertMessage>
+                        </Alert>
+                    </Column>
+                </Row>
+            }
+        </Column>
+    </Row>
+</Container>
+
+<Modal @ref="ErrorModal">
+    <Alert Color="Color.Danger" Visible="true">
+        <AlertMessage>Error getting the list of breeds.</AlertMessage>
+    </Alert>
+</Modal>
+
+@code {
+    List<CatImage> Images;
+    Modal ErrorModal;
+
+    async void Search(SearchFilters filters)
+    {
+        var result = await Api.Search(filters);
+
+        if (result.StatusCode != HttpStatusCode.OK)
+        {
+            ErrorModal.Show();
+        }
+
+        Images = result.Value.ToList();
+        StateHasChanged();
+    }
+}

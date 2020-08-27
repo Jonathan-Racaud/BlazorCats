@@ -1,0 +1,31 @@
+﻿@page "/"
+
+<Container Style="height: 85%;">
+    <Row Class="h-100">
+        <Column ColumnSize="ColumnSize.IsFull" Class="h-100 tabs-container">
+            <Tabs SelectedTab="@selectedTab" SelectedTabChanged="@OnSelectedTabChanged">
+                <Items>
+                    <Tab Name="Breeds">Breeds</Tab>
+                    @*<Tab Name="Search">Search</Tab>*@
+                </Items>
+                <Content>
+                    <TabPanel Name="Breeds" Class="h-100">
+                        <AllBreeds />
+                    </TabPanel>
+                    @*<TabPanel Name="Search tab-panel">
+                        <SearchComponent />
+                    </TabPanel>*@
+                </Content>
+            </Tabs>
+        </Column>
+    </Row>
+</Container>
+
+@code {
+    string selectedTab = "Breeds";
+
+    void OnSelectedTabChanged(string name)
+    {
+        selectedTab = name;
+    }
+}

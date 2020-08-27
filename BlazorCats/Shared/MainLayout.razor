@@ -1,0 +1,21 @@
+﻿@inherits LayoutComponentBase
+
+<Layout>
+    <LayoutHeader>
+        <Blazorise.Link To="/">
+            <Bar>
+                <BarBrand>
+                    <Heading Size="HeadingSize.Is1">Blazor Cats</Heading>
+                </BarBrand>
+            </Bar>
+        </Blazorise.Link>
+    </LayoutHeader>
+    
+    <LayoutContent>
+        @Body
+    </LayoutContent>
+
+    <LayoutFooter>
+        Made with <Icon Name="IconName.Heart"/> with <strong>Blazor</strong>
+    </LayoutFooter>
+</Layout>
