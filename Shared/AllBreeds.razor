@@ -21,7 +21,10 @@
     <Alert Color="Color.Danger" Visible="true">
         <AlertMessage>Error getting the list of images.</AlertMessage>
         <AlertDescription>
-            <Image Source="ErrorImage"></Image>
+            @if (ErrorImage != null)
+            {
+                <Image Source="ErrorImage"></Image>
+            }
         </AlertDescription>
     </Alert>
 </Modal>
