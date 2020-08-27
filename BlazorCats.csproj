@@ -20,4 +20,6 @@
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
 
+  <BlazorCacheBootResources>false</BlazorCacheBootResources>
+
 </Project>
